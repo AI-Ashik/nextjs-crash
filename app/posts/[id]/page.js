@@ -1,5 +1,6 @@
 import PostButton from "@/app/components/PostButton";
 import Comments from "@/lib/comments";
+import getAllPosts from "@/lib/getAllPosts";
 import getPost from "@/lib/getPost";
 import getPostComments from "@/lib/getPostComments";
 import { Suspense } from "react";
@@ -38,5 +39,14 @@ const PostPage = async ({ params }) => {
     </div>
   );
 };
+
+// to make dynamic rendering to static rendered but dynamic values
+export async function getStaticParams() {
+  const posts = getAllPosts();
+
+  return posts.map((post) => ({
+    id: post.id.toString(),
+  }));
+}
 
 export default PostPage;
